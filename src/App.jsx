@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import Form from './components/Form';
+import DemographicsPage from './components/DemographicsPage';
 import LandingPage from './components/LandingPage';
 
 function App() {
-  const [showForm, setShowForm] = useState(false);
+  const [showDemographics, setShowDemographics] = useState(false);
 
   return (
     <div className="App">
-      {showForm ? <Form /> : <LandingPage onTakeTest={() => setShowForm(true)} />}
+      {showDemographics ? <DemographicsPage onBack={() => setShowDemographics(false)} /> : <LandingPage onTakeTest={() => setShowDemographics(true)} />}
     </div>
   );
 }
 
 export default App;
+

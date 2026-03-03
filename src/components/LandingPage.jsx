@@ -86,7 +86,7 @@ const LandingPage = ({ onTakeTest }) => {
       </main>
 
        <footer className="w-full text-left z-10 px-6">
-          <p className="text-xs font-sans leading-tight mb-12">
+          <p className="text-xs font-sans leading-tight text-gray-500 mb-12">
             SKINSTRIC DEVELOPED AN A.I. THAT CREATES A<br />
             HIGHLY-PERSONALIZED ROUTINE TAILORED TO<br />
             WHAT YOUR SKIN NEEDS.
