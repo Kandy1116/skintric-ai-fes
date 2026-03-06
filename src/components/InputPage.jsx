@@ -31,13 +31,15 @@ const InputPage = ({ title, placeholder, onContinue, onBack }) => {
 
   return (
     <div className="intro-page">
-      <Header title={title} />
+            <Header />
+      <div className="instruction">{title}</div>
 
-      <div className="center-wrapper">
+            <div className="center-wrapper">
         <div className="square square1"></div>
         <div className="square square2"></div>
+        <div className="square square3"></div>
 
-        <div className="intro-text" onClick={() => setIsEditing(true)}>
+                <div className="intro-text" onClick={() => setIsEditing(true)}>
           {!isEditing ? (
             <>
               <div className="click-text">CLICK TO TYPE</div>

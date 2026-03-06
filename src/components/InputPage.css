@@ -27,10 +27,10 @@
  
  .instruction{ 
    position:absolute; 
-   left:30px; 
-   top:80px; 
+   left: 24px; 
+   top: 60px; 
    font-size:12px; 
-   font-weight:600; 
+      font-weight:600; 
  } 
  
  /* center */ 
@@ -49,11 +49,11 @@
  
  /* squares */ 
  
- .square{ 
+  .square{ 
    position:absolute; 
    width:380px; 
    height:380px; 
-   border:1px dotted #cfcfcf; 
+   border:1px dotted #999; 
  } 
  
  .square1{ 
@@ -63,36 +63,48 @@
  .square2{ 
    width:500px; 
    height:500px; 
+   border-color: #bbb;
    animation:spin2 25s linear infinite reverse; 
+ } 
+
+ .square3{
+  width:500px; 
+  height:500px; 
+  border-color: #ddd;
+  animation:spin3 35s linear infinite;
  } 
  
  /* text */ 
  
- .intro-text{ 
-   text-align:center; 
-   cursor: pointer;
- } 
+ .intro-text{
+  text-align:center;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+} 
  
- .click-text{ 
-   font-size:12px; 
-   color:#6c7a93; 
-   margin-bottom: 8px;
- } 
+ .click-text{
+  font-size:12px;
+  color:#6c7a93;
+  margin-bottom: 8px;
+  text-decoration: underline;
+} 
  
  .intro-text h1{ 
    font-size:48px; 
    font-weight:400; 
-   color: #ccc;
+      color: #11AA1C;
    display:inline-block; 
  } 
  
  .intro-text-input {
     font-size:48px; 
-    font-weight:700; 
+       font-weight:400; 
     color: #000;
     display:inline-block; 
     background: transparent;
-    border: none;
+           border: 2px solid transparent;
+    border-bottom: 2px solid #000;
     outline: none;
     text-align: center;
  }
@@ -106,13 +118,14 @@
    display:flex; 
    align-items:center; 
       gap: 23px; 
-   font-weight:600; 
+   font-weight:600;
+   font-size: 12px;
    cursor: pointer;
  } 
  
  .diamond{ 
-   width:44px; 
-   height:44px; 
+     width: 33px; 
+  height: 33px; 
       border:2px solid #1A1B1C; 
    color: #1A1B1C; 
    transform:rotate(45deg); 
@@ -123,7 +136,7 @@
  
  .diamond span{ 
    transform:rotate(-45deg); 
-   font-size: 20px;
+   font-size: 15px;
  } 
  
  /* animations */ 
@@ -137,11 +150,20 @@
    } 
  } 
  
- @keyframes spin2{ 
+  @keyframes spin2{ 
    from{ 
      transform:rotate(360deg); 
    } 
    to{ 
      transform:rotate(0deg); 
    } 
+ } 
+
+ @keyframes spin3{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
  } 
