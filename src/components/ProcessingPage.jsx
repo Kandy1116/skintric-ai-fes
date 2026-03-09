@@ -1,39 +1,35 @@
 import React, { useEffect } from 'react';
 import Header from './Header';
+import './InputPage.css';
 
-const ProcessingPage = ({ onProcessed, onBack }) => {
+const ProcessingPage = ({ onProcessed }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
       onProcessed();
-    }, 2500); // Simulate a 2.5-second processing time
+    }, 4000); // Set timer for 4 seconds
 
     return () => clearTimeout(timer);
   }, [onProcessed]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans p-6 relative">
+    <div className="intro-page">
       <Header />
 
-      {/* Content */}
-      <main className="flex-grow flex flex-col items-center justify-center text-center">
-        <p className="text-gray-500 mb-4">Processing submission</p>
-        <div className="flex justify-center items-center space-x-1">
-          <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse [animation-delay:-0.3s]"></div>
-          <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse [animation-delay:-0.15s]"></div>
-          <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
-        </div>
-      </main>
+      <div className="center-wrapper">
+        <div className="square square1"></div>
+        <div className="square square2"></div>
+        <div className="square square3"></div>
 
-      {/* Footer */}
-      <footer className="absolute bottom-0 left-0 p-6">
-        <button onClick={onBack} className="flex items-center space-x-3 text-sm font-semibold">
-          <div className="w-12 h-12 border-2 border-black rounded-full flex items-center justify-center text-xl hover:bg-gray-100 transition-colors -rotate-45">
-              <i className="fa-solid fa-chevron-left rotate-45"></i>
+        <div className="intro-text">
+                    <p className="text-gray-500">Processing submission</p>
+                                                  <div className="flex justify-center items-center space-x-4" style={{ gap: '2px', marginTop: '40px' }}>
+            <div className="dot dot1"></div>
+            <div className="dot dot2"></div>
+            <div className="dot dot3"></div>
           </div>
-          <span>BACK</span>
-        </button>
-      </footer>
+        </div>
+      </div>
     </div>
   );
 };

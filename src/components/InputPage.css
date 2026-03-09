@@ -4,7 +4,19 @@
    background:#fff; 
    font-family:sans-serif; 
    color: #000;
- } 
+ }
+
+.proceed-button {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+} 
  
  /* header */ 
  
@@ -166,4 +178,34 @@
   to{
     transform:rotate(360deg);
   }
- } 
+ }
+
+/* Loading dots animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ccc;
+  border-radius: 50%;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.dot1 {
+  animation-delay: -0.32s;
+}
+
+.dot2 {
+  animation-delay: -0.16s;
+}
+
+.dot3 {
+  /* No delay */
+} 

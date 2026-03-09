@@ -6,13 +6,23 @@ import ProcessingPage from './components/ProcessingPage';
 import ThankYouPage from './components/ThankYouPage';
 
 function App() {
-  const [page, setPage] = useState('landing');
+  const [history, setHistory] = useState(['landing']);
   const [userName, setUserName] = useState('');
   const [cityName, setCityName] = useState('');
 
+  const page = history[history.length - 1];
+
+  const navigateTo = (page) => {
+    setHistory(prevHistory => [...prevHistory, page]);
+  };
+
+  const handleBack = () => {
+    setHistory(prevHistory => prevHistory.slice(0, -1));
+  };
+
   const handleNameContinue = (name) => {
     setUserName(name);
-    setPage('city');
+    navigateTo('city');
   };
 
   const handleCityContinue = (city) => {
@@ -33,30 +43,30 @@ function App() {
     .then(data => {
       console.log('API Success:', data);
       // Proceed to the next step
-      setPage('processing');
+      navigateTo('processing');
     })
     .catch(error => {
       console.error('API Error:', error);
       // Still proceed to the next step to not block the user
-      setPage('processing');
+      navigateTo('processing');
     });
   };
 
   const renderPage = () => {
     switch (page) {
       case 'intro':
-        return <InputPage title="TO START ANALYSIS" placeholder="Introduce Yourself" onContinue={handleNameContinue} onBack={() => setPage('landing')} />;
+        return <InputPage key="intro" title="TO START ANALYSIS" placeholder="Introduce Yourself" onContinue={handleNameContinue} onBack={handleBack} />;
       case 'city':
-        return <InputPage title="WHAT CITY ARE YOU IN?" placeholder="Enter your city" onContinue={handleCityContinue} onBack={() => setPage('intro')} />;
+        return <InputPage key="city" title="WHAT CITY ARE YOU IN?" placeholder="Enter your city" onContinue={handleCityContinue} onBack={handleBack} />;
       case 'processing':
-        return <ProcessingPage onProcessed={() => setPage('thankyou')} onBack={() => setPage('city')} />;
+        return <ProcessingPage onProcessed={() => navigateTo('thankyou')} />;
       case 'thankyou':
-        return <ThankYouPage onProceed={() => setPage('demographics')} onBack={() => setPage('processing')} />;
+        return <ThankYouPage onProceed={() => navigateTo('demographics')} onBack={handleBack} />;
       case 'demographics':
-        return <DemographicsPage userName={userName} onBack={() => setPage('thankyou')} />;
+        return <DemographicsPage userName={userName} onBack={handleBack} />;
       case 'landing':
       default:
-        return <LandingPage onTakeTest={() => setPage('intro')} />;
+        return <LandingPage onTakeTest={() => navigateTo('intro')} />;
     }
   };
 

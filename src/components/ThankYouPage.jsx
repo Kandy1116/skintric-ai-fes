@@ -3,32 +3,37 @@ import Header from './Header';
 
 const ThankYouPage = ({ onProceed, onBack }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white font-sans p-4 relative overflow-hidden">
+    <div className="intro-page">
       <Header />
 
-      {/* Main Content */}
-      <main className="flex-grow flex flex-col items-center justify-center text-center">
-        <div className="relative z-10">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-2 tracking-wider">Thank you!</h1>
-          <p className="text-xs text-gray-400 tracking-widest">PROCEED FOR THE NEXT STEP</p>
-        </div>
-      </main>
+      <div className="center-wrapper">
+        <div className="square square1"></div>
+        <div className="square square2"></div>
+        <div className="square square3"></div>
 
-      {/* Footer */}
-      <footer className="absolute bottom-0 left-0 right-0 p-6 flex justify-between items-center">
-        <button onClick={onBack} className="flex items-center space-x-3 text-sm font-semibold">
-          <div className="w-12 h-12 border-2 border-black rounded-full flex items-center justify-center text-xl hover:bg-gray-100 transition-colors -rotate-45">
-              <i className="fa-solid fa-chevron-left rotate-45"></i>
-          </div>
-          <span>BACK</span>
-        </button>
-        <button onClick={onProceed} className="flex items-center space-x-3 text-sm font-semibold">
-          <span>PROCEED</span>
-          <div className="w-12 h-12 border-2 border-black rounded-full flex items-center justify-center text-xl hover:bg-gray-100 transition-colors -rotate-45">
-              <i className="fa-solid fa-chevron-right rotate-45"></i>
-          </div>
-        </button>
-      </footer>
+        <div className="intro-text">
+          <h1>Thank you!</h1>
+          <p className="text-sm text-gray-500 mt-2">Proceed for the next step</p>
+        </div>
+      </div>
+
+      <div className="back-button" onClick={onBack}>
+        <div className="diamond">
+          <span>
+            <i className="fa-solid fa-chevron-left"></i>
+          </span>
+        </div>
+        <span>BACK</span>
+      </div>
+
+      <div className="proceed-button" onClick={onProceed}>
+        <span>PROCEED</span>
+        <div className="diamond">
+          <span>
+            <i className="fa-solid fa-chevron-right"></i>
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
