@@ -1,0 +1,114 @@
+/* LabeledIcon.css */
+
+.permission {
+  position: relative;
+  width: 450px;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- ROTATING SQUARES --- */
+.permission .square {
+  position: absolute;
+  animation-duration: 40s;
+  transform: rotate(45deg);
+}
+.permission .square.square1 {
+  width: 175px; height: 175px;
+  animation: spin1 40s linear infinite;
+  border: 1px dotted #dcdcdc;
+}
+.permission .square.square2 {
+  width: 187.5px; height: 187.5px;
+  animation: spin2 40s linear infinite reverse;
+  border: 1px dotted #b0b0b0;
+}
+.permission .square.square3 {
+  width: 225px; height: 225px;
+  animation: spin3 40s linear infinite;
+  border: 1px dotted #c0c0c0;
+}
+
+/* --- MAIN ICON (BIG CIRCLE) --- */
+.icon-wrapper {
+  width: 112px;
+  height: 112px;
+  border: 2px solid #222;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  z-index: 10;
+  background-color: #fff; /* To hide the squares behind it */
+}
+
+/* --- CONNECTOR LINE --- */
+.connector {
+  position: absolute;
+  top: 50%;
+  width: 120px;
+  height: 1px;
+  background: #333;
+}
+
+/* --- CONNECTOR DOT (SMALL DOT) --- */
+.dot {
+  position: absolute;
+  top: -2.5px;
+  width: 6px;
+  height: 6px;
+  background: #333;
+  border-radius: 50%;
+}
+
+/* --- LABEL --- */
+.label {
+  font-size: 12px;
+  font-family: sans-serif;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* --- LEFT SIDE --- */
+.permission.left .connector {
+  left: 50%;
+  transform: rotate(-45deg);
+  transform-origin: left;
+}
+.permission.left .dot {
+  right: -4px;
+}
+.permission.left .label {
+  position: absolute;
+  left: calc(50% + 94px);
+  top: calc(50% - 100px);
+  text-align: left;
+}
+
+/* --- RIGHT SIDE --- */
+.permission.right .connector {
+  left: 50%;
+  transform: rotate(135deg);
+  transform-origin: left;
+}
+.permission.right .dot {
+  right: -4px;
+}
+.permission.right .label {
+  position: absolute;
+  left: calc(50% - 200px);
+  top: calc(50% + 80px);
+  text-align: right;
+}
+
+/* Keyframes for rotation */
+@keyframes spin1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes spin2 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes spin3 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
