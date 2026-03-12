@@ -94,21 +94,21 @@
 .square1 {
   width: 364px;
   height: 364px;
-  border: 2.75px dotted #b0b0b0;
+  border: 2.75px dotted var(--color-gray-300);
   animation: spin1 60s linear infinite;
 }
 
 .square2 {
   width: 403px;
   height: 403px;
-  border: 2.75px dotted #c0c0c0;
+  border: 2.75px dotted var(--color-gray-200);
   animation: spin2 75s linear infinite reverse;
 }
 
 .square3 {
   width: 442px;
   height: 442px;
-  border: 2.75px dotted #dcdcdc;
+  border: 2.75px dotted var(--color-gray-100);
   animation: spin3 85s linear infinite;
 } 
  

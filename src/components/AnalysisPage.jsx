@@ -26,7 +26,7 @@ const AnalysisPage = ({ onBack }) => {
   );
 
   return (
-    <div className="intro-page flex flex-col">
+    <div className="intro-page analysis-page flex flex-col">
       <Header />
       <div className="instruction">TO START ANALYSIS</div>
 

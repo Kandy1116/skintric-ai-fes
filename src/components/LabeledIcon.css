@@ -18,23 +18,40 @@
 .permission .square.square1 {
   width: 390px; height: 390px;
   animation: spin1 70s linear infinite;
-  border: 2.75px dotted #b0b0b0;
+  border: 2.75px dotted var(--color-gray-300);
   transform: translate(-10px, -10px) rotate(15deg);
   animation-delay: 0s;
 }
 .permission .square.square2 {
   width: 390px; height: 390px;
   animation: spin2 80s linear infinite;
-  border: 2.75px dotted #c0c0c0;
+  border: 2.75px dotted var(--color-gray-200);
   transform: rotate(30deg);
   animation-delay: 1s;
 }
 .permission .square.square3 {
   width: 390px; height: 390px;
   animation: spin3 80s linear infinite;
-  border: 2.75px dotted #dcdcdc;
+  border: 2.75px dotted var(--color-gray-100);
   transform: translate(10px, 10px) rotate(45deg);
   animation-delay: 2s;
+}
+
+/* --- ANALYSIS PAGE OVERRIDES --- */
+.analysis-page .permission .square.square1 {
+  width: 253px;
+  height: 253px;
+  animation-duration: 80s;
+}
+.analysis-page .permission .square.square2 {
+  width: 273px;
+  height: 273px;
+  animation-duration: 90s;
+}
+.analysis-page .permission .square.square3 {
+  width: 293px;
+  height: 293px;
+  animation-duration: 100s;
 }
 
 /* --- MAIN ICON (BIG CIRCLE) --- */
