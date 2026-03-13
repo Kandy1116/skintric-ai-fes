@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import BackButton from './BackButton';
-import LabeledIcon from './LabeledIcon'; // Import the new component
-import ConfirmationDialog from './ConfirmationDialog'; // Import the dialog
-import './InputPage.css'; // Reusing styles for squares and animations
-import './LabeledIcon.css'; // Import the new component's styles
+import LabeledIcon from './LabeledIcon';
+import ConfirmationDialog from './ConfirmationDialog';
+import './InputPage.css';
+import './LabeledIcon.css';
 
-const AnalysisPage = ({ onBack }) => {
+const AnalysisPage = ({ onBack, onAllow, onUpload }) => {
   const [showCameraDialog, setShowCameraDialog] = useState(false);
   const [showGalleryDialog, setShowGalleryDialog] = useState(false);
 
@@ -42,14 +42,20 @@ const AnalysisPage = ({ onBack }) => {
 
       {showCameraDialog && (
         <ConfirmationDialog 
-          onAllow={() => setShowCameraDialog(false)} 
+          onAllow={() => {
+            onAllow();
+            setShowCameraDialog(false);
+          }} 
           onDeny={() => setShowCameraDialog(false)} 
         />
       )}
 
       {showGalleryDialog && (
         <ConfirmationDialog 
-          onAllow={() => setShowGalleryDialog(false)} 
+          onAllow={() => {
+            onUpload();
+            setShowGalleryDialog(false);
+          }} 
           onDeny={() => setShowGalleryDialog(false)} 
         />
       )}

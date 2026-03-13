@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 
 import BackButton from './BackButton';
 
 const ThankYouPage = ({ onProceed, onBack }) => {
+  const [isButtonVisible, setIsButtonVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsButtonVisible(true);
+    }, 500); // Delay to sync with text appearance
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div className="intro-page">
       <Header />
@@ -21,7 +29,7 @@ const ThankYouPage = ({ onProceed, onBack }) => {
 
             <BackButton onClick={onBack} />
 
-      <div className="proceed-button" onClick={onProceed}>
+      <div className={`proceed-button ${isButtonVisible ? 'animate-slide-in-from-left' : ''}`} onClick={onProceed}>
         <span>PROCEED</span>
         <div className="diamond">
           <span>

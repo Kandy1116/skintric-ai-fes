@@ -13,3 +13,19 @@ body {
     background-color: #000;
     color: #fff;
 }
+
+@keyframes slide-in-from-left {
+  from {
+    transform: translateX(-500px);
+    opacity: 0.1;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-from-left {
+  animation: slide-in-from-left 0.8s ease-in-out forwards;
+}
+

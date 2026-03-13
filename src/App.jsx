@@ -5,11 +5,15 @@ import InputPage from './components/InputPage';
 import ProcessingPage from './components/ProcessingPage';
 import ThankYouPage from './components/ThankYouPage';
 import AnalysisPage from './components/AnalysisPage';
+import CameraSetupPage from './components/CameraSetupPage';
+import Camera from './components/Camera';
+import ImageUpload from './components/ImageUpload';
 
 function App() {
   const [history, setHistory] = useState(['landing']);
   const [userName, setUserName] = useState('');
   const [cityName, setCityName] = useState('');
+  const [demographics, setDemographics] = useState(null);
 
   const page = history[history.length - 1];
 
@@ -62,6 +66,25 @@ function App() {
     });
   };
 
+  const handleImageSubmit = (imageBase64) => {
+    fetch('https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ image: imageBase64.split(',')[1] }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Phase Two API Success:', data);
+      setDemographics(data.data);
+      navigateTo('demographics');
+    })
+    .catch(error => {
+      console.error('Phase Two API Error:', error);
+    });
+  };
+
   const renderPage = () => {
     switch (page) {
       case 'intro':
@@ -73,9 +96,15 @@ function App() {
             case 'thankyou':
         return <ThankYouPage onProceed={() => navigateTo('analysis')} onBack={handleBack} />;
       case 'analysis':
-        return <AnalysisPage onBack={handleBack} />;
+        return <AnalysisPage onBack={handleBack} onAllow={() => navigateTo('camera_setup')} onUpload={() => navigateTo('upload')} />;
+      case 'camera_setup':
+        return <CameraSetupPage onSetupComplete={() => replaceAndNavigate('camera')} />;
+      case 'camera':
+        return <Camera onCapture={handleImageSubmit} onBack={handleBack} />;
+      case 'upload':
+        return <ImageUpload onUpload={handleImageSubmit} onBack={handleBack} />;
       case 'demographics':
-        return <DemographicsPage userName={userName} onBack={handleBack} />;
+        return <DemographicsPage userName={userName} demographics={demographics} onBack={handleBack} />;
       case 'landing':
       default:
         return <LandingPage onTakeTest={() => navigateTo('intro')} />;

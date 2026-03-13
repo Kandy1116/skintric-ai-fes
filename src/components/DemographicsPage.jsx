@@ -1,88 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import ImageUpload from './ImageUpload';
 import DemographicsResults from './DemographicsResults';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import BackButton from './BackButton';
+import './DemographicsPage.css';
 
-const DemographicsPage = ({ onBack }) => {
-  const [demographics, setDemographics] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+const DemographicsPage = ({ userName, demographics, onBack }) => {
   const [userSelections, setUserSelections] = useState({
     race: null,
     age: null,
     gender: null,
   });
 
-
-
-  const handleUpload = async (base64Image) => {
-    setIsLoading(true);
-    setError(null);
-    setDemographics(null); // Clear previous results
-    setUserSelections({ race: null, age: null, gender: null }); // Clear selections
-    try {
-      const response = await fetch('https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ image: base64Image }),
+  useEffect(() => {
+    if (demographics) {
+      const getTopPick = (category) => {
+        if (!demographics[category]) return null;
+        return Object.keys(demographics[category]).reduce((a, b) =>
+          demographics[category][a] > demographics[category][b] ? a : b
+        );
+      };
+      setUserSelections({
+        race: getTopPick('race'),
+        age: getTopPick('age'),
+        gender: getTopPick('gender'),
       });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setDemographics(data.data);
-        const getTopPick = (category) => {
-          if (!data.data[category]) return null;
-          return Object.keys(data.data[category]).reduce((a, b) => 
-            data.data[category][a] > data.data[category][b] ? a : b
-          );
-        };
-        setUserSelections({
-          race: getTopPick('race'),
-          age: getTopPick('age'),
-          gender: getTopPick('gender'),
-        });
-      } else {
-        setError(data.message || 'An unknown error occurred.');
-      }
-    } catch (err) {
-      setError('Failed to fetch demographics. Please check your connection.');
     }
-    setIsLoading(false);
-  };
+  }, [demographics]);
 
   const handleSelection = (category, value) => {
     setUserSelections(prev => ({ ...prev, [category]: value }));
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 font-sans overflow-hidden">
-      <Sidebar selections={userSelections} />
-      <main className="flex-1 p-6 overflow-y-auto">
-        <div className="square square1"></div>
-        <div className="square square2"></div>
-        <div className="square square3"></div>
+    <div className="demographics-container">
+      <Sidebar userName={userName} selections={userSelections} />
+      <main className="demographics-main-content">
         <Header />
         <BackButton onClick={onBack} />
-
-        <ImageUpload onUpload={handleUpload} isLoading={isLoading} />
-
-        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
-
-        {demographics && (
-          <div className="mt-6 relative z-20">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">YOUR RESULTS</h2>
-            <p className="text-gray-500 mb-4">Click on a score to update your actual attributes in the left sidebar.</p>
-            <DemographicsResults key={JSON.stringify(demographics)} data={demographics} onSelect={handleSelection} />
-          </div>
-        )}
+        <div className="results-container">
+          <h2 className="results-header">YOUR RESULTS</h2>
+          <p className="results-subheader">Click on a score to update your actual attributes in the left sidebar.</p>
+          {demographics ? (
+            <DemographicsResults data={demographics} onSelect={handleSelection} />
+          ) : (
+            <p>Loading results...</p>
+          )}
+        </div>
       </main>
     </div>
-
   );
 };
 

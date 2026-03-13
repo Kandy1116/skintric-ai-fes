@@ -1,23 +1,22 @@
 import React from 'react';
 
-const Sidebar = ({ selections }) => {
+const Sidebar = ({ userName, selections }) => {
   const renderSelection = (label, value) => (
-    <div>
-      <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-lg font-semibold text-gray-900 capitalize">{value || '-'}</p>
+    <div className="selection-item">
+      <span className="selection-label">{label}</span>
+      <span className="selection-value">{value || 'Not Selected'}</span>
     </div>
   );
 
   return (
-    <aside className="w-80 bg-white p-[8px] border-r border-gray-200">
-      <h2 className="text-lg font-bold text-gray-800 mb-2">SKINSTRIC</h2>
-      <p className="text-sm text-gray-500 mb-6">A.I. ANALYSIS</p>
-      
-      <div className="space-y-4">
-        <h3 className="text-md font-semibold text-gray-800 border-b pb-2">YOUR ACTUALS</h3>
-        {renderSelection('Race', selections.race)}
-        {renderSelection('Age', selections.age)}
-        {renderSelection('Gender', selections.gender)}
+    <aside className="sidebar">
+      <div className="sidebar-header">
+        <h2 className="user-name">{userName}</h2>
+      </div>
+      <div className="sidebar-content">
+        {renderSelection('RACE', selections.race)}
+        {renderSelection('AGE', selections.age)}
+        {renderSelection('GENDER', selections.gender)}
       </div>
     </aside>
   );

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const DemographicsResults = ({ data, onSelect }) => {
-  
   const formatScore = (score) => (score * 100).toFixed(2) + '%';
 
   const sortAndFormat = (category) => {
@@ -16,17 +15,17 @@ const DemographicsResults = ({ data, onSelect }) => {
   const gender = sortAndFormat('gender');
 
   const renderCategory = (title, items, categoryKey) => (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">{title}</h3>
-      <ul className="divide-y divide-gray-200">
+    <div className="category-container">
+      <h3 className="category-title">{title}</h3>
+      <ul className="category-list">
         {items.map(({ key, value }) => (
-          <li 
-            key={key} 
-            className="flex justify-between items-center py-3 cursor-pointer group"
+          <li
+            key={key}
+            className="category-item"
             onClick={() => onSelect(categoryKey, key)}
           >
-            <span className="capitalize text-gray-600 group-hover:text-blue-600 transition-colors">{key}</span>
-            <span className="font-mono text-gray-800 group-hover:text-blue-600 transition-colors">{formatScore(value)}</span>
+            <span className="category-key">{key}</span>
+            <span className="category-value">{formatScore(value)}</span>
           </li>
         ))}
       </ul>
@@ -34,10 +33,10 @@ const DemographicsResults = ({ data, onSelect }) => {
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {renderCategory('Race', race, 'race')}
-      {renderCategory('Age', age, 'age')}
-      {renderCategory('Gender', gender, 'gender')}
+    <div className="demographics-results-grid">
+      {renderCategory('RACE', race, 'race')}
+      {renderCategory('AGE', age, 'age')}
+      {renderCategory('GENDER', gender, 'gender')}
     </div>
   );
 };

@@ -42,6 +42,7 @@ const InputPage = ({ title, placeholder, onContinue, onBack }) => {
 
                 <div className="intro-text">
             <form onSubmit={handleSubmit}>
+              <div className="click-to-type">CLICK TO TYPE</div>
               <input
                   ref={inputRef}
                   type="text"
