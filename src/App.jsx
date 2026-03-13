@@ -96,7 +96,7 @@ function App() {
             case 'thankyou':
         return <ThankYouPage onProceed={() => navigateTo('analysis')} onBack={handleBack} />;
       case 'analysis':
-        return <AnalysisPage onBack={handleBack} onAllow={() => navigateTo('camera_setup')} onUpload={() => navigateTo('upload')} />;
+        return <AnalysisPage onBack={handleBack} onAllow={() => navigateTo('camera_setup')} onUpload={() => navigateTo('upload')} />; 
       case 'camera_setup':
         return <CameraSetupPage onSetupComplete={() => replaceAndNavigate('camera')} />;
       case 'camera':
