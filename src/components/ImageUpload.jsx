@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
-// This is a placeholder for the original ImageUpload component.
-// It was a simple, unstyled file input on a black background.
 const ImageUpload = ({ onUpload, onBack }) => {
+  const fileInputRef = useRef(null);
+  const effectRan = useRef(false);
+
+  useEffect(() => {
+    if (effectRan.current === false) {
+      fileInputRef.current.click();
+      effectRan.current = true;
+    }
+  }, []);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -12,14 +19,18 @@ const ImageUpload = ({ onUpload, onBack }) => {
         onUpload(reader.result);
       };
       reader.readAsDataURL(file);
+    } else {
+      onBack();
     }
   };
 
   return (
-    <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ backgroundColor: 'black', height: '100vh' }}>
       <input 
         type="file" 
+        ref={fileInputRef} 
         onChange={handleFileChange} 
+        style={{ display: 'none' }} 
         accept="image/*" 
       />
     </div>

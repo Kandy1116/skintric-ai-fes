@@ -8,10 +8,8 @@ import './LabeledIcon.css';
 
 const AnalysisPage = ({ onBack, onAllow, onUpload }) => {
   const [showCameraDialog, setShowCameraDialog] = useState(false);
-  const [showGalleryDialog, setShowGalleryDialog] = useState(false);
 
   const handleCameraClick = () => setShowCameraDialog(true);
-  const handleGalleryClick = () => setShowGalleryDialog(true);
 
   const leftLabel = (
     <>
@@ -37,26 +35,18 @@ const AnalysisPage = ({ onBack, onAllow, onUpload }) => {
 
       <div className="flex-grow flex items-center justify-center gap-x-[23rem]">
         <LabeledIcon icon="fa-camera-retro" label={leftLabel} side="left" onClick={handleCameraClick} />
-        <LabeledIcon icon="fa-image" label={rightLabel} side="right" onClick={handleGalleryClick} />
+        {/* This now directly triggers the upload flow */}
+        <LabeledIcon icon="fa-image" label={rightLabel} side="right" onClick={onUpload} />
       </div>
 
       {showCameraDialog && (
         <ConfirmationDialog 
+          message="ALLOW A.I. TO ACCESS YOUR CAMERA"
           onAllow={() => {
             onAllow();
             setShowCameraDialog(false);
           }} 
           onDeny={() => setShowCameraDialog(false)} 
-        />
-      )}
-
-      {showGalleryDialog && (
-        <ConfirmationDialog 
-          onAllow={() => {
-            onUpload();
-            setShowGalleryDialog(false);
-          }} 
-          onDeny={() => setShowGalleryDialog(false)} 
         />
       )}
 

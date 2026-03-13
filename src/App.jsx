@@ -8,12 +8,14 @@ import AnalysisPage from './components/AnalysisPage';
 import CameraSetupPage from './components/CameraSetupPage';
 import Camera from './components/Camera';
 import ImageUpload from './components/ImageUpload';
+import AnalysisPrepPage from './components/AnalysisPrepPage';
 
 function App() {
   const [history, setHistory] = useState(['landing']);
   const [userName, setUserName] = useState('');
   const [cityName, setCityName] = useState('');
   const [demographics, setDemographics] = useState(null);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const page = history[history.length - 1];
 
@@ -66,23 +68,35 @@ function App() {
     });
   };
 
-  const handleImageSubmit = (imageBase64) => {
-    fetch('https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ image: imageBase64.split(',')[1] }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Phase Two API Success:', data);
-      setDemographics(data.data);
-      navigateTo('demographics');
-    })
-    .catch(error => {
-      console.error('Phase Two API Error:', error);
-    });
+  const handleImageSubmit = async (imageBase64) => {
+    navigateTo('analysis_prep'); // 1. Immediately navigate to the loading screen
+
+    try {
+      // 2. Perform the API call in the background
+      const response = await fetch('https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ image: imageBase64.split(',')[1] }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.data) {
+        // 3. On success, set the data and trigger the pop-up on the prep page
+        setDemographics(result.data);
+        setShowSuccessPopup(true);
+      } else {
+        console.error('API Error:', result.message || 'An unknown error occurred');
+        alert('There was an error analyzing your image. Please try again.');
+        handleBack();
+      }
+    } catch (error) {
+      console.error('Network Error:', error);
+      alert('There was a network error. Please check your connection and try again.');
+      handleBack();
+    }
   };
 
   const renderPage = () => {
@@ -103,6 +117,15 @@ function App() {
         return <Camera onCapture={handleImageSubmit} onBack={handleBack} />;
       case 'upload':
         return <ImageUpload onUpload={handleImageSubmit} onBack={handleBack} />;
+      case 'analysis_prep':
+        return <AnalysisPrepPage 
+          onBack={handleBack} 
+          showPopup={showSuccessPopup} 
+          onPopupOk={() => {
+            setShowSuccessPopup(false); // Reset the popup state
+            navigateTo('demographics');
+          }}
+        />;
       case 'demographics':
         return <DemographicsPage userName={userName} demographics={demographics} onBack={handleBack} />;
       case 'landing':
