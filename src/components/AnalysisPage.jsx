@@ -28,14 +28,8 @@ const AnalysisPage = ({ onBack, onAllow, onUpload }) => {
       <Header />
       <div className="instruction">TO START ANALYSIS</div>
 
-      <div className="preview-container">
-        <div className="preview-label">Preview</div>
-        <div className="preview-box"></div>
-      </div>
-
       <div className="flex-grow flex items-center justify-center gap-x-[23rem]">
         <LabeledIcon icon="fa-camera-retro" label={leftLabel} side="left" onClick={handleCameraClick} />
-        {/* This now directly triggers the upload flow */}
         <LabeledIcon icon="fa-image" label={rightLabel} side="right" onClick={onUpload} />
       </div>
 

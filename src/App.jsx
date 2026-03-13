@@ -16,6 +16,7 @@ function App() {
   const [cityName, setCityName] = useState('');
   const [demographics, setDemographics] = useState(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
 
   const page = history[history.length - 1];
 
@@ -69,6 +70,7 @@ function App() {
   };
 
   const handleImageSubmit = async (imageBase64) => {
+    setCapturedImage(imageBase64); // Set the captured image
     navigateTo('analysis_prep'); // 1. Immediately navigate to the loading screen
 
     try {
@@ -110,7 +112,7 @@ function App() {
             case 'thankyou':
         return <ThankYouPage onProceed={() => navigateTo('analysis')} onBack={handleBack} />;
       case 'analysis':
-        return <AnalysisPage onBack={handleBack} onAllow={() => navigateTo('camera_setup')} onUpload={() => navigateTo('upload')} />; 
+        return <AnalysisPage onBack={handleBack} onAllow={() => navigateTo('camera_setup')} onUpload={() => navigateTo('upload')} />;
       case 'camera_setup':
         return <CameraSetupPage onSetupComplete={() => replaceAndNavigate('camera')} />;
       case 'camera':
@@ -122,9 +124,10 @@ function App() {
           onBack={handleBack} 
           showPopup={showSuccessPopup} 
           onPopupOk={() => {
-            setShowSuccessPopup(false); // Reset the popup state
+            setShowSuccessPopup(false);
             navigateTo('demographics');
           }}
+          capturedImage={capturedImage} // Pass the image here
         />;
       case 'demographics':
         return <DemographicsPage userName={userName} demographics={demographics} onBack={handleBack} />;
