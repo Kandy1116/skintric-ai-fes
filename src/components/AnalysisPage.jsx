@@ -50,16 +50,6 @@ const AnalysisPage = ({ onBack, onAllow, onUpload }) => {
         />
       )}
 
-      {showGalleryDialog && (
-        <ConfirmationDialog 
-          onAllow={() => {
-            onUpload();
-            setShowGalleryDialog(false);
-          }} 
-          onDeny={() => setShowGalleryDialog(false)} 
-        />
-      )}
-
       <BackButton onClick={onBack} />
     </div>
   );

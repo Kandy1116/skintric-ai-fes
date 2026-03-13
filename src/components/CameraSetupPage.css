@@ -53,6 +53,23 @@
 .camera-setup-page .fa-camera {
   font-size: 5rem;
   color: #000;
+  animation: fade-in-out 2.5s ease-in-out infinite alternate;
+}
+
+.camera-setup-page .setting-up-text {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 1rem;
+  animation: fade-in-out 2s ease-in-out infinite alternate;
+}
+
+@keyframes fade-in-out {
+  from {
+    color: #000;
+  }
+  to {
+    color: #ccc;
+  }
 }
 
 .camera-setup-page .setting-up-text {
